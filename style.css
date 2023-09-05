@@ -67,7 +67,7 @@ a:hover{
     display: none;
     scale: 1.3;
     margin-right: 60px;
-
+    transition: linear .5s;
 }
  
 
@@ -83,12 +83,11 @@ a:hover{
     right: 25%;
     background-color: #ffffffa8;
     scale: 0;
-    transition: transform 0.3s ease;
+    transition: linear .5s;
 }
 .home .menuNav.effect2{
     scale: .8;
-    /* height: fit-content;
-    transition: transform 0.9s ease; */
+    height: fit-content;
 }
 .menu-links{
     display: flex;
@@ -108,7 +107,7 @@ a:hover{
 }
 
 .menuIcon.effect{
-    transform: rotate(-90deg);
+    transform: rotate(-810deg);
     transition: transform 0.3s ease;
 }
 
