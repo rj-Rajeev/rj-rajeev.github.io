@@ -168,8 +168,10 @@ a:hover{
     border: .5px solid black;
     border-radius: 100px;
 }
-/* .right .btn .btn1{
-} */
+.right .btn .btn1 a{
+    text-decoration: none;
+    color: rgb(109, 106, 106);
+}
 .right .btn .btn2{
     background-color: #000;
     color: #fff;
