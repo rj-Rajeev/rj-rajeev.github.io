@@ -15,7 +15,7 @@ This repository contains the source code and assets for my personal portfolio we
 
 ## Demo 🌟
 
-You can check out my portfolio website in action at [www.Portfolio-Rj.com](https://rj-rajeev.github.io/Rj-Portfolio/).
+You can check out my portfolio website in action at [www.Portfolio-Rj.com](https://rj-rajeev.github.io).
 
 ## Features 🚀
 
