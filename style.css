@@ -8,6 +8,7 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   --radius: 16px;
   --sidebar-width: 320px;
+  --bottom-nav-height: 68px;
 }
 
 * {
@@ -53,6 +54,7 @@ a {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  overflow: hidden;
 }
 
 .card:hover {
@@ -243,7 +245,7 @@ a {
 
 /* Project card minor padding */
 .project-card {
-  padding: 12px;
+  padding: 16px;
 }
 
 /* Inline emoji icon for contact */
@@ -409,7 +411,7 @@ a {
 }
 
 .contact-card {
-  padding: 14px;
+  padding: 16px;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -427,11 +429,19 @@ a {
   font-size: 0.95rem;
 }
 
+/* Prevent text overflow in cards */
+.card p,
+.card li,
+.card .title,
+.card .sub {
+  overflow-wrap: anywhere;
+}
+
 /* Chat slider */
 .chat-fab {
   position: fixed;
   right: 16px;
-  bottom: calc(84px + env(safe-area-inset-bottom));
+  bottom: calc(var(--bottom-nav-height) + 16px + env(safe-area-inset-bottom));
   z-index: 960;
   background: var(--accent);
   color: #1a1a1a;
@@ -483,6 +493,7 @@ a {
   padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid var(--border);
+  overflow-wrap: anywhere;
 }
 
 .chat-message.user {
@@ -534,6 +545,7 @@ a {
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
   z-index: 950;
+  min-height: var(--bottom-nav-height);
   transform: translateY(100%);
   transition: transform 0.3s ease;
 }
@@ -545,6 +557,9 @@ a {
   display: grid;
   grid-template-rows: auto auto;
   justify-items: center;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
 }
 
 .bottom-nav .nav-link .icon {
@@ -554,6 +569,9 @@ a {
 .bottom-nav .nav-link .label {
   font-size: 0.75rem;
   color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bottom-nav .nav-link.active .label {
@@ -570,4 +588,6 @@ a {
   left: 12px;
   transform: translateX(0);
   transition: left 0.25s ease;
+  z-index: 0;
+  pointer-events: none;
 }

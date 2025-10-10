@@ -81,6 +81,15 @@ window.addEventListener('hashchange', () => {
   activateSection(getSectionIdFromHash());
 });
 
+// Recalculate bottom indicator on resize/orientation
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.bottom-nav .nav-link.active');
+  if (active) {
+    const id = active.dataset.section;
+    if (id) activateSection(id);
+  }
+});
+
 // No sidebar drawer on mobile anymore; using bottom nav
 
 // Chat slider logic

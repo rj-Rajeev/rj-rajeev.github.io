@@ -25,7 +25,7 @@
   }
 
   .content {
-    padding: 24px 16px 76px; /* room for bottom bar */
+    padding: 24px 16px calc(var(--bottom-nav-height) + 16px); /* room for bottom bar */
   }
 
   .topbar {
