@@ -42,6 +42,21 @@
     border-bottom: 1px solid var(--border);
     margin: -24px -16px 16px;
   }
+  .topbar-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .topbar-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #0b0d11;
+  }
+  .topbar-name {
+    font-weight: 700;
+  }
 
   .bottom-nav {
     display: grid;
