@@ -71,12 +71,29 @@
               <p>BCA — Noida International University (CGPA: 8.8/10)</p>
             </div>
           </div>
-          <p class="lead">
-            👋 I’m a full‑stack developer focused on building smooth, scalable web
-            experiences. Recently at Prutor.ai I contributed to an edtech platform
-            serving 1M+ learners, led intern teams, modularized services across
-            6+ platforms, and built analytics‑driven dashboards and prototypes.
-          </p>
+          <div class="about-cards">
+            <article class="about-card card">
+              <h3>What I do</h3>
+              <p>
+                I design and build full‑stack web apps with a strong focus on
+                performance, accessibility, and delightful UX. I enjoy translating
+                product ideas into scalable UI systems, clean APIs, and measurable results.
+              </p>
+            </article>
+            <article class="about-card card">
+              <h3>Recent highlights</h3>
+              <ul class="bullets">
+                <li>80% shared modules across 6+ platforms → 40% faster delivery</li>
+                <li>Refactors improving readability by 20–30% and onboarding speed</li>
+                <li>Analytics dashboards driving content and engagement decisions</li>
+                <li>Habitix: gamified habit app with AI daily roadmaps</li>
+              </ul>
+            </article>
+            <article class="about-card card">
+              <h3>Tech I enjoy</h3>
+              <p>Next.js, React, TypeScript, Node.js, MongoDB, Tailwind, Redux Toolkit</p>
+            </article>
+          </div>
         </section>
 
         <section id="experience" class="section" aria-labelledby="experience-title">
@@ -213,24 +230,58 @@
 
         <section id="contact" class="section" aria-labelledby="contact-title">
           <h2 id="contact-title" class="section-title">Contact</h2>
-          <div class="contact-card card">
-            <div class="row">
-              <img class="icon" src="./aasets/mail-fill.png" alt="Email" />
-              <a href="mailto:rajeevbhardwaj.dev@gmail.com">rajeevbhardwaj.dev@gmail.com</a>
-            </div>
+          <div class="contact-grid">
+            <a class="contact-card card" href="mailto:rajeevbhardwaj.dev@gmail.com">
+              <div class="row">
+                <img class="icon" src="./aasets/mail-fill.png" alt="Email" />
+                <div>
+                  <div class="title">Email</div>
+                  <div class="sub">rajeevbhardwaj.dev@gmail.com</div>
+                </div>
+              </div>
+            </a>
+            <a class="contact-card card" href="tel:+917417248826">
+              <div class="row">
+                <span class="icon-text" aria-hidden="true">📞</span>
+                <div>
+                  <div class="title">Phone</div>
+                  <div class="sub">+91 7417248826</div>
+                </div>
+              </div>
+            </a>
+            <a class="contact-card card" href="https://www.linkedin.com/in/rajeevji/" target="_blank" rel="noreferrer">
+              <div class="row">
+                <img class="icon" src="./aasets/linkedin-box-fill.png" alt="LinkedIn" />
+                <div>
+                  <div class="title">LinkedIn</div>
+                  <div class="sub">/in/rajeevji</div>
+                </div>
+              </div>
+            </a>
+            <a class="contact-card card" href="https://github.com/rj-rajeev" target="_blank" rel="noreferrer">
+              <div class="row">
+                <img class="icon" src="./aasets/github-fill.png" alt="GitHub" />
+                <div>
+                  <div class="title">GitHub</div>
+                  <div class="sub">@rj-rajeev</div>
+                </div>
+              </div>
+            </a>
           </div>
-          <div class="contact-card card">
-            <div class="row">
-              <span class="icon-text" aria-hidden="true">📞</span>
-              <a href="tel:+917417248826">+91 7417248826</a>
-            </div>
-          </div>
-          <div class="contact-card card">
-            <div class="row">
-              <img class="icon" src="./aasets/linkedin-box-fill.png" alt="LinkedIn" />
-              <a href="https://www.linkedin.com/in/rajeevji/" target="_blank" rel="noreferrer">LinkedIn</a>
-            </div>
-          </div>
+        </section>
+
+        <!-- Chat with me slider -->
+        <div class="chat-fab" aria-label="Open chat" role="button">Chat</div>
+        <section class="chat-panel" aria-live="polite" aria-label="Chat panel" hidden>
+          <header class="chat-header">
+            <div class="chat-title">Chat with Rajeev</div>
+            <button class="chat-close" aria-label="Close chat">✕</button>
+          </header>
+          <div class="chat-messages" id="chat-messages"></div>
+          <form class="chat-input" id="chat-form">
+            <input id="chat-text" name="message" type="text" placeholder="Ask me anything…" autocomplete="off" required />
+            <button class="btn btn-primary" type="submit">Send</button>
+          </form>
         </section>
 
         <footer class="site-footer">
@@ -239,14 +290,41 @@
       </main>
       <!-- Mobile Bottom Navigation -->
       <nav class="bottom-nav" aria-label="Mobile Navigation">
-        <button class="nav-link" data-section="about" aria-label="About">About</button>
-        <button class="nav-link" data-section="experience" aria-label="Experience">Experience</button>
-        <button class="nav-link" data-section="skills" aria-label="Skills">Skills</button>
-        <button class="nav-link" data-section="projects" aria-label="Projects">Projects</button>
-        <button class="nav-link" data-section="contact" aria-label="Contact">Contact</button>
+        <span class="bottom-indicator" aria-hidden="true"></span>
+        <button class="nav-link" data-section="about" aria-label="About">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5.006 5.006 0 0 0 5 5Zm0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+          </span>
+          <span class="label">About</span>
+        </button>
+        <button class="nav-link" data-section="experience" aria-label="Experience">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M14 6V4H10v2H4v14h16V6Zm-8 2h12v10H6Zm3-2h6V6h-6Z"/></svg>
+          </span>
+          <span class="label">Exp</span>
+        </button>
+        <button class="nav-link" data-section="skills" aria-label="Skills">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M7 4h10l1 2H6Zm-3 4h16l-1 12H5ZM8 2h8v2H8Z"/></svg>
+          </span>
+          <span class="label">Skills</span>
+        </button>
+        <button class="nav-link" data-section="projects" aria-label="Projects">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M4 4h7v7H4Zm9 0h7v7h-7ZM4 13h7v7H4Zm9 0h7v7h-7Z"/></svg>
+          </span>
+          <span class="label">Projects</span>
+        </button>
+        <button class="nav-link" data-section="contact" aria-label="Contact">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5Z"/></svg>
+          </span>
+          <span class="label">Contact</span>
+        </button>
       </nav>
     </div>
 
     <script src="script.js"></script>
+    <!-- To enable chat, run: OPENAI_API_KEY=... npm run dev -->
   </body>
   </html>

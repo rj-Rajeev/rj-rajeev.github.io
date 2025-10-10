@@ -45,6 +45,7 @@
 
   .bottom-nav {
     display: grid;
+    transform: translateY(0);
   }
 
   .grid.two {
@@ -57,6 +58,14 @@
   }
 
   .skills-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
     grid-template-columns: 1fr;
   }
 }
