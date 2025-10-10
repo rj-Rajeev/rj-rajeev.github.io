@@ -275,6 +275,21 @@
               </div>
             </a>
           </div>
+          <form class="contact-form card" id="contact-form">
+            <div class="form-row">
+              <input type="text" id="cf-name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-row">
+              <input type="email" id="cf-email" name="email" placeholder="Your email" required />
+            </div>
+            <div class="form-row">
+              <textarea id="cf-message" name="message" placeholder="Your message" required></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Send message</button>
+              <span class="form-status" id="cf-status" aria-live="polite"></span>
+            </div>
+          </form>
         </section>
 
         <!-- Chat with me slider -->

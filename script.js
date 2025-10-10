@@ -208,6 +208,35 @@ async function openAiClientChat(message, apiKey) {
   return data.choices?.[0]?.message?.content?.trim() || 'Thanks! I will get back to you.';
 }
 
+// Contact form (dummy submit)
+const cf = document.getElementById('contact-form');
+const cfStatus = document.getElementById('cf-status');
+if (cf) {
+  cf.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = new FormData(cf);
+    cfStatus.textContent = 'Sending…';
+    await new Promise((r) => setTimeout(r, 800));
+    cfStatus.textContent = 'Thanks! I will get back to you soon.';
+    cf.reset();
+  });
+}
+
+// Reveal-on-scroll
+const revealEls = document.querySelectorAll('.card, .section-title, .project-card');
+const ioReveal = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (en.isIntersecting) {
+      en.target.classList.add('in');
+      ioReveal.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach((el) => {
+  el.classList.add('reveal');
+  ioReveal.observe(el);
+});
+
 // Simple click ripple on buttons
 document.addEventListener('click', (e) => {
   const target = e.target.closest('.btn, .nav-link, .contact-card');
