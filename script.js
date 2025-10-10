@@ -2,7 +2,6 @@
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('.section');
 const sidebar = document.querySelector('.sidebar');
-const navToggle = document.querySelector('.nav-toggle');
 
 function getSectionIdFromHash() {
   const h = window.location.hash.replace('#', '').trim();
@@ -26,9 +25,15 @@ function activateSection(sectionId) {
     history.replaceState(null, '', `#${sectionId}`);
   }
 
-  // Close sidebar on mobile after navigation
-  if (sidebar && sidebar.classList.contains('open')) {
-    sidebar.classList.remove('open');
+  // Sync active state to bottom nav
+  const bottomNav = document.querySelector('.bottom-nav');
+  if (bottomNav) {
+    const bottomLinks = bottomNav.querySelectorAll('.nav-link');
+    bottomLinks.forEach((l) => l.classList.remove('active'));
+    const bottomActive = Array.from(bottomLinks).find(
+      (l) => l.dataset.section === sectionId
+    );
+    if (bottomActive) bottomActive.classList.add('active');
   }
 }
 
@@ -40,6 +45,17 @@ navLinks.forEach((link) => {
   });
 });
 
+// Bottom nav handlers
+const bottomNav = document.querySelector('.bottom-nav');
+if (bottomNav) {
+  bottomNav.querySelectorAll('.nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const id = link.dataset.section;
+      if (id) activateSection(id);
+    });
+  });
+}
+
 // Load initial section from hash
 window.addEventListener('DOMContentLoaded', () => {
   activateSection(getSectionIdFromHash());
@@ -49,9 +65,4 @@ window.addEventListener('hashchange', () => {
   activateSection(getSectionIdFromHash());
 });
 
-// Mobile sidebar toggle
-if (navToggle) {
-  navToggle.addEventListener('click', () => {
-    if (sidebar) sidebar.classList.toggle('open');
-  });
-}
+// No sidebar drawer on mobile anymore; using bottom nav
