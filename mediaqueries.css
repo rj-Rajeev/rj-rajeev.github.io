@@ -9,6 +9,9 @@
   .projects-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .skills-categories {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* Tablet and below */
@@ -18,19 +21,11 @@
   }
 
   .sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: min(86vw, 360px);
-    transform: translateX(-100%);
-    transition: transform 0.25s ease;
-    z-index: 1000;
-  }
-  .sidebar.open {
-    transform: translateX(0);
+    display: none;
   }
 
   .content {
-    padding: 24px 16px;
+    padding: 24px 16px calc(var(--bottom-nav-height) + 16px); /* room for bottom bar */
   }
 
   .topbar {
@@ -47,11 +42,26 @@
     border-bottom: 1px solid var(--border);
     margin: -24px -16px 16px;
   }
-
-  .topbar .nav-toggle img {
+  .topbar-right { display: inline-flex; }
+  .topbar-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .topbar-avatar {
     width: 28px;
     height: 28px;
-    filter: brightness(1.2);
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #0b0d11;
+  }
+  .topbar-name {
+    font-weight: 700;
+  }
+
+  .bottom-nav {
+    display: grid;
+    transform: translateY(0);
   }
 
   .grid.two {
@@ -61,5 +71,25 @@
   .skills-grid,
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+
+  .skills-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .about-stats {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

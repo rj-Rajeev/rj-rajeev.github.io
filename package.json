@@ -1,0 +1,11 @@
+{
+  "name": "portfolio-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "echo 'Open index.html via static hosting'",
+    "dev": "echo 'Use Live Server or any static server'"
+  },
+  "dependencies": {}
+}

@@ -19,17 +19,17 @@
         <div class="profile card">
           <img class="avatar" src="./aasets/White.Rj.png" alt="Rajeev avatar" />
           <h1 class="name">Rajeev Bhardwaj</h1>
-          <p class="role">Web Developer</p>
+          <p class="role">Full Stack Developer</p>
           <div class="socials">
             <a
-              href="https://www.linkedin.com/in/rj-rajeev/"
+              href="https://www.linkedin.com/in/rajeevji/"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
               ><img src="./aasets/linkedin-box-fill.png" alt="LinkedIn" />
             </a>
             <a
-              href="https://github.com/rj-Rajeev"
+              href="https://github.com/rj-rajeev"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -38,7 +38,7 @@
           </div>
           <a
             class="btn btn-primary"
-            href="https://drive.google.com/file/d/1ydPi4vCYcOqDMDKgreHL3VloDruZMOep/view?usp=drivesdk"
+            href="./aasets/Rajeev's Resume 10JAN.pdf"
             target="_blank"
             rel="noreferrer"
             >Download Resume</a
@@ -47,6 +47,7 @@
 
         <nav class="primary-nav" aria-label="Primary">
           <button class="nav-link active" data-section="about">About</button>
+          <button class="nav-link" data-section="experience">Experience</button>
           <button class="nav-link" data-section="skills">Skills</button>
           <button class="nav-link" data-section="projects">Projects</button>
           <button class="nav-link" data-section="contact">Contact</button>
@@ -55,106 +56,138 @@
 
       <main class="content">
         <header class="topbar">
-          <button class="nav-toggle" aria-label="Open menu">
-            <img src="./aasets/menu.png" alt="Open menu" />
-          </button>
-          <div class="topbar-title">Portfolio</div>
+          <div class="topbar-left">
+            <img class="topbar-avatar" src="./aasets/White.Rj.png" alt="Rajeev avatar" />
+            <div class="topbar-name">Rajeev Bhardwaj</div>
+          </div>
+          <div class="topbar-right">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color mode">🌙</button>
+          </div>
         </header>
 
         <section id="about" class="section active" aria-labelledby="about-title">
           <h2 id="about-title" class="section-title">About</h2>
+          <div class="about-hero card">
+            <div class="about-hero-content">
+              <h3 class="about-headline">I build fast, scalable, delightful web apps.</h3>
+              <p class="about-sub">
+                Full‑stack developer focused on product velocity and user experience.
+                From MVP to 1M+ users, I design clean systems and interfaces that ship.
+              </p>
+              <div class="about-cta">
+                <a class="btn btn-primary" href="./aasets/Rajeev's Resume 10JAN.pdf" target="_blank" rel="noreferrer">Download Resume</a>
+                <a class="btn btn-ghost" href="https://www.linkedin.com/in/rajeevji/" target="_blank" rel="noreferrer">Connect</a>
+              </div>
+            </div>
+            <div class="about-stats">
+              <div class="stat">
+                <div class="stat-num">1M+</div>
+                <div class="stat-label">Learners served</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">6+</div>
+                <div class="stat-label">Platforms shipped</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">40%</div>
+                <div class="stat-label">Faster delivery</div>
+              </div>
+            </div>
+          </div>
+          <div class="about-toolbelt card">
+            <h3>Toolbelt</h3>
+            <p>React, Next.js, TypeScript, Node.js, MongoDB, Tailwind, Redux Toolkit, Jest, Docker</p>
+          </div>
           <div class="grid two">
             <div class="info-card card">
-              <h3>Experience</h3>
-              <p>
-                6+ months Web Development at
-                <a href="https://sathee.prutor.ai" target="_blank" rel="noreferrer">Prutor.ai</a>
-              </p>
+              <h3>Current Role</h3>
+              <p>Full Stack Developer at Prutor.ai (@IIT Kanpur)</p>
             </div>
             <div class="info-card card">
               <h3>Education</h3>
-              <p>Bachelor of Computer Applications</p>
+              <p>BCA — Noida International University (CGPA: 8.8/10)</p>
             </div>
           </div>
-          <p class="lead">
-            👋 Hey there! I'm Rajeev Bhardwaj, a dedicated web developer with a strong
-            foundation in React.js and an ongoing exploration of Node.js. I'm
-            passionate about crafting seamless, user‑friendly web experiences.
-          </p>
+          <div class="about-cards">
+            <article class="about-card card">
+              <h3>What I do</h3>
+              <p>
+                I design and build full‑stack web apps with a strong focus on
+                performance, accessibility, and delightful UX. I enjoy translating
+                product ideas into scalable UI systems, clean APIs, and measurable results.
+              </p>
+            </article>
+            <article class="about-card card">
+              <h3>Recent highlights</h3>
+              <ul class="bullets">
+                <li>80% shared modules across 6+ platforms → 40% faster delivery</li>
+                <li>Refactors improving readability by 20–30% and onboarding speed</li>
+                <li>Analytics dashboards driving content and engagement decisions</li>
+                <li>Habitix: gamified habit app with AI daily roadmaps</li>
+              </ul>
+            </article>
+            <article class="about-card card">
+              <h3>Tech I enjoy</h3>
+              <p>Next.js, React, TypeScript, Node.js, MongoDB, Tailwind, Redux Toolkit</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="experience" class="section" aria-labelledby="experience-title">
+          <h2 id="experience-title" class="section-title">Experience</h2>
+          <div class="timeline">
+            <article class="exp-card card">
+              <div class="exp-header">
+                <h3>Full Stack Developer — Prutor.ai (@IIT Kanpur), Noida</h3>
+                <span class="exp-dates">Jun 2024 – Present</span>
+              </div>
+              <ul class="bullets">
+                <li>Stack: Node.js, Express.js, MongoDB, Go/EJS Templates, Docker, Jest, Git</li>
+                <li>Contributed to an edtech platform serving 1M+ students (JEE, NEET, SSC, etc.).</li>
+                <li>Modularized services across 6+ platforms, achieving 80% code reuse and 40% efficiency gains.</li>
+                <li>Refactored legacy code for 20–30% improved readability and faster onboarding.</li>
+                <li>Led 5–6 developer interns; partnered with UI/UX, QA, and content teams.</li>
+                <li>Built an edtech prototype with Next.js, Node.js, and Strapi (CMS).</li>
+                <li>Implemented JWT auth, video courses, mock tests, session scheduling, dashboards.</li>
+                <li>Designed analytics dashboards for performance and engagement.</li>
+              </ul>
+            </article>
+            <article class="exp-card card">
+              <div class="exp-header">
+                <h3>Software Development Intern — Prutor.ai (@IIT Kanpur), Noida</h3>
+                <span class="exp-dates">Jan 2024 – Apr 2024</span>
+              </div>
+              <ul class="bullets">
+                <li>Automated content migration with Python and Regex for large markdown datasets.</li>
+                <li>Built static educational content pages with Hugo and Go templates.</li>
+                <li>Improved template maintainability and reusability across Hugo modules.</li>
+              </ul>
+            </article>
+          </div>
         </section>
 
         <section id="skills" class="section" aria-labelledby="skills-title">
           <h2 id="skills-title" class="section-title">Skills</h2>
-          <div class="skills-grid">
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-html.png" alt="HTML" />
-              <div>
-                <div class="skill-name">HTML</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
+          <div class="skills-categories">
+            <div class="skill-category card">
+              <h3>Languages</h3>
+              <p>JavaScript, TypeScript, C++, Python, SQL</p>
             </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-css.png" alt="CSS" />
-              <div>
-                <div class="skill-name">CSS</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
+            <div class="skill-category card">
+              <h3>Frontend</h3>
+              <p>React.js, Next.js, Tailwind CSS, Redux Toolkit</p>
             </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-javascript.png" alt="JavaScript" />
-              <div>
-                <div class="skill-name">JavaScript</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
+            <div class="skill-category card">
+              <h3>Backend</h3>
+              <p>Node.js, Express.js, REST APIs, OAuth</p>
             </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-tailwindCss.png" alt="Tailwind CSS" />
-              <div>
-                <div class="skill-name">Tailwind CSS</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
+            <div class="skill-category card">
+              <h3>Databases</h3>
+              <p>MongoDB, MySQL</p>
             </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-reactjs.png" alt="React" />
-              <div>
-                <div class="skill-name">React</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-nodejs.png" alt="Node.js" />
-              <div>
-                <div class="skill-name">Node.js</div>
-                <div class="skill-level">Basic</div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-expressJs.png" alt="Express" />
-              <div>
-                <div class="skill-name">Express</div>
-                <div class="skill-level">Basic</div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-appwrite.png" alt="Appwrite" />
-              <div>
-                <div class="skill-name">Appwrite</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-git.png" alt="Git" />
-              <div>
-                <div class="skill-name">Git</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img class="skill-icon" src="./aasets/icon-github.png" alt="GitHub" />
-              <div>
-                <div class="skill-name">GitHub</div>
-                <div class="skill-level">Intermediate</div>
-              </div>
+            <div class="skill-category card">
+              <h3>Tools</h3>
+              <p>Git, GitHub, Docker, Linux (Basics), Jest</p>
             </div>
           </div>
         </section>
@@ -165,8 +198,27 @@
             <article class="project-card card">
               <img
                 class="project-image"
+                src="./aasets/img1.jpg"
+                alt="Habitix project preview"
+                loading="lazy" decoding="async"
+              />
+              <div class="project-content">
+                <h3>Habitix (2025)</h3>
+                <p>
+                  Next.js, TypeScript, MongoDB, Tailwind CSS, Redux Toolkit, NextAuth, Node.js
+                </p>
+                <div class="actions">
+                  <a class="btn btn-ghost" href="https://github.com/rj-rajeev?tab=repositories&q=habitix" target="_blank" rel="noreferrer">Code</a>
+                  <a class="btn btn-primary" href="https://habitix.in" target="_blank" rel="noreferrer">Live</a>
+                </div>
+              </div>
+            </article>
+            <article class="project-card card">
+              <img
+                class="project-image"
                 src="./aasets/bytebloggers.png"
-                alt="ByteBlogger preview"
+                alt="ByteBlogger project preview"
+                loading="lazy" decoding="async"
               />
               <div class="project-content">
                 <h3>ByteBlogger</h3>
@@ -186,6 +238,7 @@
                 class="project-image"
                 src="./aasets/Dynemic Todo.png"
                 alt="Dynamic Todo App preview"
+                loading="lazy" decoding="async"
               />
               <div class="project-content">
                 <h3>Dynamic Todo App</h3>
@@ -202,6 +255,7 @@
                 class="project-image"
                 src="./aasets/Overlays Clothing.png"
                 alt="Ecommerce website preview"
+                loading="lazy" decoding="async"
               />
               <div class="project-content">
                 <h3>Ecommerce Website</h3>
@@ -217,26 +271,138 @@
 
         <section id="contact" class="section" aria-labelledby="contact-title">
           <h2 id="contact-title" class="section-title">Contact</h2>
-          <div class="contact-card card">
-            <div class="row">
-              <img class="icon" src="./aasets/mail-fill.png" alt="Email" />
-              <a href="mailto:Heyrajeev1@gmail.com">Heyrajeev1@gmail.com</a>
-            </div>
+          <div class="contact-grid">
+            <a class="contact-card card" href="mailto:rajeevbhardwaj.dev@gmail.com">
+              <div class="row">
+                <img class="icon" src="./aasets/mail-fill.png" alt="Email" />
+                <div>
+                  <div class="title">Email</div>
+                  <div class="sub">rajeevbhardwaj.dev@gmail.com</div>
+                </div>
+              </div>
+            </a>
+            <a class="contact-card card" href="tel:+917417248826">
+              <div class="row">
+                <span class="icon-text" aria-hidden="true">📞</span>
+                <div>
+                  <div class="title">Phone</div>
+                  <div class="sub">+91 7417248826</div>
+                </div>
+              </div>
+            </a>
+            <a class="contact-card card" href="https://www.linkedin.com/in/rajeevji/" target="_blank" rel="noreferrer">
+              <div class="row">
+                <img class="icon" src="./aasets/linkedin-box-fill.png" alt="LinkedIn" />
+                <div>
+                  <div class="title">LinkedIn</div>
+                  <div class="sub">/in/rajeevji</div>
+                </div>
+              </div>
+            </a>
+            <a class="contact-card card" href="https://github.com/rj-rajeev" target="_blank" rel="noreferrer">
+              <div class="row">
+                <img class="icon" src="./aasets/github-fill.png" alt="GitHub" />
+                <div>
+                  <div class="title">GitHub</div>
+                  <div class="sub">@rj-rajeev</div>
+                </div>
+              </div>
+            </a>
           </div>
-          <div class="contact-card card">
-            <div class="row">
-              <img class="icon" src="./aasets/linkedin-box-fill.png" alt="LinkedIn" />
-              <a href="https://www.linkedin.com/in/rj-rajeev/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <form class="contact-form card" id="contact-form">
+            <div class="form-row">
+              <input type="text" id="cf-name" name="name" placeholder="Your name" required />
             </div>
+            <div class="form-row">
+              <input type="email" id="cf-email" name="email" placeholder="Your email" required />
+            </div>
+            <div class="form-row">
+              <textarea id="cf-message" name="message" placeholder="Your message" required></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Send message</button>
+              <span class="form-status" id="cf-status" aria-live="polite"></span>
+            </div>
+          </form>
+        </section>
+
+        <!-- Chat with me slider -->
+        <div class="chat-fab" aria-label="Open chat" role="button">Chat</div>
+        <section class="chat-panel" aria-live="polite" aria-label="Chat panel" hidden>
+          <header class="chat-header">
+            <div class="chat-title-area">
+              <img class="chat-avatar" src="./aasets/White.Rj.png" alt="" />
+              <div>
+                <div class="chat-title">Chat with Rajeev</div>
+                <div class="chat-status" id="chat-status">Online</div>
+              </div>
+            </div>
+            <div class="chat-actions">
+              <button class="chat-btn chat-settings" aria-label="Settings">⚙</button>
+              <button class="chat-btn chat-clear" aria-label="Clear conversation">🗑</button>
+              <button class="chat-btn chat-close" aria-label="Close chat">✕</button>
+            </div>
+          </header>
+          <div class="chat-settings-panel" id="chat-settings-panel" hidden>
+            <label for="chat-api-key">OpenAI API Key</label>
+            <div class="settings-row">
+              <input id="chat-api-key" type="password" placeholder="sk-..." autocomplete="off" />
+              <button class="btn btn-primary" id="save-key" type="button">Save</button>
+            </div>
+            <p class="settings-note">Your key is stored locally in this browser (never sent anywhere except OpenAI).</p>
           </div>
+          <div class="chat-messages" id="chat-messages"></div>
+          <div class="chat-typing" id="chat-typing" hidden>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <button class="chat-scroll-bottom" id="chat-scroll-bottom" hidden aria-label="Scroll to latest">▼</button>
+          <form class="chat-input" id="chat-form">
+            <input id="chat-text" name="message" type="text" placeholder="Ask me anything… (Enter to send)" autocomplete="off" required />
+            <button class="btn btn-primary" id="chat-send" type="submit">Send</button>
+          </form>
         </section>
 
         <footer class="site-footer">
           <p>© 2024 Rajeev Bhardwaj. All rights reserved.</p>
         </footer>
       </main>
+      <!-- Mobile Bottom Navigation -->
+      <nav class="bottom-nav" aria-label="Mobile Navigation">
+        <span class="bottom-indicator" aria-hidden="true"></span>
+        <button class="nav-link" data-section="about" aria-label="About">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5.006 5.006 0 0 0 5 5Zm0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+          </span>
+          <span class="label">About</span>
+        </button>
+        <button class="nav-link" data-section="experience" aria-label="Experience">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M14 6V4H10v2H4v14h16V6Zm-8 2h12v10H6Zm3-2h6V6h-6Z"/></svg>
+          </span>
+          <span class="label">Exp</span>
+        </button>
+        <button class="nav-link" data-section="skills" aria-label="Skills">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M7 4h10l1 2H6Zm-3 4h16l-1 12H5ZM8 2h8v2H8Z"/></svg>
+          </span>
+          <span class="label">Skills</span>
+        </button>
+        <button class="nav-link" data-section="projects" aria-label="Projects">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M4 4h7v7H4Zm9 0h7v7h-7ZM4 13h7v7H4Zm9 0h7v7h-7Z"/></svg>
+          </span>
+          <span class="label">Projects</span>
+        </button>
+        <button class="nav-link" data-section="contact" aria-label="Contact">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5Z"/></svg>
+          </span>
+          <span class="label">Contact</span>
+        </button>
+      </nav>
     </div>
 
     <script src="script.js"></script>
+    <!-- To enable chat, run: OPENAI_API_KEY=... npm run dev -->
   </body>
   </html>
