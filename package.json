@@ -4,11 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "NODE_ENV=development node server.js"
+    "start": "echo 'Open index.html via static hosting'",
+    "dev": "echo 'Use Live Server or any static server'"
   },
-  "dependencies": {
-    "express": "^4.19.2",
-    "openai": "^4.57.2"
-  }
+  "dependencies": {}
 }

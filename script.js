@@ -99,6 +99,14 @@ const chatClose = document.querySelector('.chat-close');
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-text');
 const chatMessages = document.getElementById('chat-messages');
+const chatTyping = document.getElementById('chat-typing');
+const chatScrollBottom = document.getElementById('chat-scroll-bottom');
+const chatClear = document.querySelector('.chat-clear');
+const chatSettingsBtn = document.querySelector('.chat-settings');
+const chatSettingsPanel = document.getElementById('chat-settings-panel');
+const chatApiKeyInput = document.getElementById('chat-api-key');
+const chatSaveKey = document.getElementById('save-key');
+const chatStatus = document.getElementById('chat-status');
 
 function addMessage(text, role = 'user') {
   const div = document.createElement('div');
@@ -122,6 +130,20 @@ function toggleChat(open) {
 
 if (chatFab) chatFab.addEventListener('click', () => toggleChat(true));
 if (chatClose) chatClose.addEventListener('click', () => toggleChat(false));
+if (chatClear) chatClear.addEventListener('click', () => {
+  chatMessages.innerHTML = '';
+});
+if (chatSettingsBtn) chatSettingsBtn.addEventListener('click', () => {
+  const opened = !chatSettingsPanel.hidden;
+  chatSettingsPanel.hidden = opened;
+});
+if (chatSaveKey) chatSaveKey.addEventListener('click', () => {
+  const key = chatApiKeyInput.value.trim();
+  if (key) {
+    localStorage.setItem('openai_key', key);
+    chatStatus.textContent = 'Online';
+  }
+});
 
 if (chatForm) {
   chatForm.addEventListener('submit', async (e) => {
@@ -130,19 +152,60 @@ if (chatForm) {
     if (!text) return;
     chatInput.value = '';
     addMessage(text, 'user');
+    const key = localStorage.getItem('openai_key');
+    if (!key) {
+      addMessage('Please add your OpenAI API key in settings ⚙ to chat.', 'bot');
+      return;
+    }
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
-      });
-      if (!res.ok) throw new Error('Network error');
-      const data = await res.json();
-      addMessage(data.reply || 'Thanks! I will get back to you.', 'bot');
+      chatTyping.hidden = false;
+      chatStatus.textContent = 'Typing…';
+      const reply = await openAiClientChat(text, key);
+      addMessage(reply, 'bot');
     } catch (err) {
       addMessage('Sorry, something went wrong. Please try again later.', 'bot');
+    } finally {
+      chatTyping.hidden = true;
+      chatStatus.textContent = 'Online';
     }
   });
+}
+
+// Scroll-bottom affordance
+if (chatMessages && chatScrollBottom) {
+  chatMessages.addEventListener('scroll', () => {
+    const nearBottom = chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 80;
+    chatScrollBottom.hidden = nearBottom;
+  });
+  chatScrollBottom.addEventListener('click', () => {
+    chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+  });
+}
+
+// OpenAI client using fetch (no server)
+async function openAiClientChat(message, apiKey) {
+  const system = `You are Rajeev's AI assistant for his portfolio site. Persona: Friendly, concise, professional. Context: Full Stack Developer at Prutor.ai (@IIT Kanpur). Skills: React, Next.js, TypeScript, Node.js, MongoDB, Tailwind, Redux Toolkit. Projects: Habitix. Keep replies short (1-3 sentences).`;
+
+  // Use Chat Completions for broad compatibility
+  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: message }
+      ],
+      temperature: 0.5,
+      max_tokens: 200
+    })
+  });
+  if (!res.ok) throw new Error('OpenAI API error');
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content?.trim() || 'Thanks! I will get back to you.';
 }
 
 // Simple click ripple on buttons

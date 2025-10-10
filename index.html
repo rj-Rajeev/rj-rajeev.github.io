@@ -281,13 +281,35 @@
         <div class="chat-fab" aria-label="Open chat" role="button">Chat</div>
         <section class="chat-panel" aria-live="polite" aria-label="Chat panel" hidden>
           <header class="chat-header">
-            <div class="chat-title">Chat with Rajeev</div>
-            <button class="chat-close" aria-label="Close chat">✕</button>
+            <div class="chat-title-area">
+              <img class="chat-avatar" src="./aasets/White.Rj.png" alt="" />
+              <div>
+                <div class="chat-title">Chat with Rajeev</div>
+                <div class="chat-status" id="chat-status">Online</div>
+              </div>
+            </div>
+            <div class="chat-actions">
+              <button class="chat-btn chat-settings" aria-label="Settings">⚙</button>
+              <button class="chat-btn chat-clear" aria-label="Clear conversation">🗑</button>
+              <button class="chat-btn chat-close" aria-label="Close chat">✕</button>
+            </div>
           </header>
+          <div class="chat-settings-panel" id="chat-settings-panel" hidden>
+            <label for="chat-api-key">OpenAI API Key</label>
+            <div class="settings-row">
+              <input id="chat-api-key" type="password" placeholder="sk-..." autocomplete="off" />
+              <button class="btn btn-primary" id="save-key" type="button">Save</button>
+            </div>
+            <p class="settings-note">Your key is stored locally in this browser (never sent anywhere except OpenAI).</p>
+          </div>
           <div class="chat-messages" id="chat-messages"></div>
+          <div class="chat-typing" id="chat-typing" hidden>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <button class="chat-scroll-bottom" id="chat-scroll-bottom" hidden aria-label="Scroll to latest">▼</button>
           <form class="chat-input" id="chat-form">
-            <input id="chat-text" name="message" type="text" placeholder="Ask me anything…" autocomplete="off" required />
-            <button class="btn btn-primary" type="submit">Send</button>
+            <input id="chat-text" name="message" type="text" placeholder="Ask me anything… (Enter to send)" autocomplete="off" required />
+            <button class="btn btn-primary" id="chat-send" type="submit">Send</button>
           </form>
         </section>
 
