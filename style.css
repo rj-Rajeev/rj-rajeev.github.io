@@ -11,6 +11,16 @@
   --bottom-nav-height: 68px;
 }
 
+[data-theme="light"] {
+  --bg: #fbfbfd;
+  --surface: #ffffff;
+  --text: #0b1220;
+  --muted: #475164;
+  --accent: #f59e0b;
+  --border: #e5e7eb;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -154,6 +164,15 @@ a {
   display: none;
 }
 
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
 .section {
   display: none;
   animation: fade 0.25s ease;
@@ -177,6 +196,33 @@ a {
   align-items: center;
   min-height: 44px;
 }
+
+/* About hero */
+.about-hero {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  padding: 20px;
+}
+
+.about-headline {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.about-sub {
+  color: var(--muted);
+}
+
+.about-cta { display: flex; gap: 10px; margin-top: 12px; }
+
+.about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { padding: 12px; border: 1px solid var(--border); border-radius: 12px; text-align: center; }
+.stat-num { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+.stat-label { color: var(--muted); font-size: 0.95rem; }
+
+.about-toolbelt { margin: 14px 0; padding: 16px; }
 
 .lead {
   color: var(--muted);
