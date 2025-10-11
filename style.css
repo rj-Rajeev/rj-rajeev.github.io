@@ -1,13 +1,15 @@
 :root {
   color-scheme: dark;
-  --bg: #0f1115;
-  --surface: #161a22;
-  --text: #e7eaf0;
-  --muted: #9aa3b2;
-  --accent: #ffb400;
-  --border: #232a36;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  --radius: 16px;
+  --bg: #1e1e1e;
+  --surface: #252526;
+  --text: #d4d4d4;
+  --muted: #858585;
+  --accent: #569cd6;
+  --accent-alt: #4ec9b0;
+  --border: #3c3c3c;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --radius: 4px;
+  --font-mono: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
   --sidebar-width: 320px;
   --bottom-nav-height: 68px;
   --bg-gradient: radial-gradient(
@@ -66,16 +68,73 @@ body {
 }
 
 body {
-  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
-    Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
-    "Segoe UI Emoji";
+  font-family: var(--font-mono);
   color: var(--text);
-  background: var(--bg-gradient);
+  background: var(--bg);
   background-attachment: fixed;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Terminal scanline effect */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    transparent,
+    rgba(86, 156, 214, 0.03),
+    transparent
+  );
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+  z-index: 9999;
+}
+
+/* Terminal Animations */
+@keyframes typingEffect {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 5px var(--accent);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--accent);
+  }
 }
 
 /* Smooth theme transition - scope to app root */
@@ -105,11 +164,7 @@ a {
 }
 
 .card {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.03) 0%,
-    rgba(255, 255, 255, 0.015) 100%
-  );
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -117,12 +172,28 @@ a {
     border-color 0.25s ease;
   overflow: hidden;
   padding: 16px;
+  position: relative;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .sidebar {
@@ -253,14 +324,44 @@ svg {
 }
 
 .section-title {
-  font-size: 1.75rem;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 18px;
-  padding-left: 14px;
-  border-left: 4px solid var(--accent);
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--accent);
   display: flex;
   align-items: center;
-  min-height: 44px;
+}
+
+.section-title::before {
+  content: "$ ls";
+  color: var(--accent-alt);
+  margin-right: 12px;
+  opacity: 0.8;
+}
+
+.section-title::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--accent);
+  margin-left: 8px;
+  animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Developer flair: subtle terminal prompt before section titles */
@@ -364,28 +465,68 @@ svg {
 
 /* Skills categories (resume-style) */
 .skills-categories {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  font-family: var(--font-mono);
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 
 .skill-category {
   padding: 16px;
+  position: relative;
+}
+
+.skill-category::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: var(--accent-alt);
+  opacity: 0.8;
 }
 
 .skill-category h3 {
-  font-size: 1.1rem;
-  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+  margin-left: 16px;
+}
+
+.skill-category p {
+  margin-left: 16px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+/* Syntax highlighting for skills */
+.skill-category p .lang {
+  color: var(--accent);
+}
+.skill-category p .lib {
+  color: var(--accent-alt);
+}
+.skill-category p .tool {
+  color: #c586c0;
 }
 
 /* Experience timeline */
 .timeline {
-  display: grid;
-  gap: 16px;
+  font-family: var(--font-mono);
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 
 .exp-card {
   padding: 16px;
+  position: relative;
+  border-bottom: 1px dashed var(--border);
+}
+
+.exp-card:last-child {
+  border-bottom: none;
 }
 
 .exp-header {
@@ -393,22 +534,48 @@ svg {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
+  margin-bottom: 12px;
+}
+
+.exp-header::before {
+  content: "$ cat";
+  color: var(--accent-alt);
+  position: absolute;
+  left: 0;
+  margin-left: 16px;
+}
+
+.exp-header h3 {
+  margin-left: 64px;
+  font-size: 1rem;
+  color: var(--accent);
 }
 
 .exp-dates {
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .bullets {
-  margin-top: 8px;
+  margin: 12px 0 0 64px;
   padding-left: 18px;
   display: grid;
-  gap: 6px;
+  gap: 8px;
+  font-size: 0.9rem;
+  border-left: 1px solid var(--border);
 }
 
 .bullets li {
-  color: var(--muted);
+  color: var(--text);
+  position: relative;
+}
+
+.bullets li::before {
+  content: ">";
+  color: var(--accent-alt);
+  position: absolute;
+  left: -18px;
+  opacity: 0.8;
 }
 
 /* Project card minor padding */
@@ -1172,7 +1339,9 @@ code {
 }
 
 @keyframes typingDots {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: translateY(0);
     opacity: 0.4;
   }
