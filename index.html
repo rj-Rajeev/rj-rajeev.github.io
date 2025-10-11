@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="mediaqueries.css" />
   </head>
   <body>
-    <div class="app">
+    <div class="app theme-anim">
       <aside class="sidebar" aria-label="Sidebar">
         <div class="profile card">
           <img class="avatar" src="./aasets/White.Rj.png" alt="Rajeev avatar" />
@@ -267,6 +267,16 @@
               </div>
             </article>
           </div>
+          <!-- Modal for project details -->
+          <div class="modal-overlay" id="project-modal" hidden aria-hidden="true" aria-labelledby="project-modal-title" role="dialog">
+            <div class="modal-dialog">
+              <header class="modal-header">
+                <h3 id="project-modal-title">Project details</h3>
+                <button class="modal-close" id="project-modal-close" aria-label="Close">✕</button>
+              </header>
+              <div class="modal-body" id="project-modal-body"></div>
+            </div>
+          </div>
         </section>
 
         <section id="contact" class="section" aria-labelledby="contact-title">
@@ -363,7 +373,7 @@
         </section>
 
         <footer class="site-footer">
-          <p>© 2024 Rajeev Bhardwaj. All rights reserved.</p>
+          <p>© <span id="year"></span> Rajeev Bhardwaj · All rights reserved.</p>
         </footer>
       </main>
       <!-- Mobile Bottom Navigation -->

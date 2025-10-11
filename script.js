@@ -65,6 +65,17 @@ if (bottomNav) {
   });
 }
 
+// Prevent footer overlap with bottom bar by adding spacer on mobile
+function updateFooterSpacer() {
+  const content = document.querySelector('.content');
+  const bottom = document.querySelector('.bottom-nav');
+  if (!content || !bottom) return;
+  const isMobile = getComputedStyle(bottom).display !== 'none';
+  content.style.paddingBottom = isMobile ? `calc(var(--bottom-nav-height) + 16px + env(safe-area-inset-bottom))` : '';
+}
+window.addEventListener('resize', updateFooterSpacer);
+window.addEventListener('DOMContentLoaded', updateFooterSpacer);
+
 // Load initial section from hash
 window.addEventListener('DOMContentLoaded', () => {
   activateSection(getSectionIdFromHash());
@@ -80,6 +91,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const pref = localStorage.getItem('theme') || 'dark';
     setTheme(pref);
   } catch {}
+  // Enable smooth theme transition after first paint
+  requestAnimationFrame(() => {
+    document.querySelector('.app')?.classList.add('theme-anim');
+  });
+  // Set footer year
+  const y = document.getElementById('year');
+  if (y) y.textContent = String(new Date().getFullYear());
 });
 
 window.addEventListener('hashchange', () => {
@@ -257,6 +275,68 @@ document.addEventListener('click', (e) => {
   setTimeout(() => ripple.remove(), 600);
 });
 
+// Project cards: open modal with full details
+const modal = document.getElementById('project-modal');
+const modalBody = document.getElementById('project-modal-body');
+const modalClose = document.getElementById('project-modal-close');
+
+function openProjectModal(fromCard) {
+  if (!modal || !modalBody) return;
+  const title = fromCard.querySelector('h3')?.textContent?.trim() || 'Project';
+  const imgSrc = fromCard.querySelector('.project-image')?.getAttribute('src');
+  const desc = fromCard.querySelector('p')?.textContent?.trim() || '';
+  const actions = fromCard.querySelector('.actions')?.cloneNode(true);
+  modal.querySelector('#project-modal-title').textContent = title;
+  modalBody.innerHTML = '';
+  if (imgSrc) {
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = title;
+    img.style.width = '100%';
+    img.style.borderRadius = '12px';
+    img.style.border = '1px solid var(--border)';
+    modalBody.appendChild(img);
+  }
+  const p = document.createElement('p');
+  p.style.margin = '12px 0 16px';
+  p.textContent = desc;
+  modalBody.appendChild(p);
+  if (actions) modalBody.appendChild(actions);
+  modal.hidden = false;
+  requestAnimationFrame(() => modal.classList.add('open'));
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeProjectModal() {
+  if (!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  setTimeout(() => (modal.hidden = true), 250);
+}
+
+document.querySelectorAll('.project-card').forEach((card) => {
+  card.setAttribute('tabindex', '0');
+  card.addEventListener('click', (e) => {
+    // Ignore clicks on action buttons
+    if (e.target.closest('.actions') || e.target.closest('a')) return;
+    openProjectModal(card);
+  });
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openProjectModal(card);
+    }
+  });
+});
+
+if (modalClose) modalClose.addEventListener('click', closeProjectModal);
+if (modal) modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeProjectModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal && !modal.hidden) closeProjectModal();
+});
+
 // Theme toggle
 const themeToggle = document.getElementById('theme-toggle');
 function setTheme(mode) {
@@ -268,6 +348,9 @@ function setTheme(mode) {
 if (themeToggle) {
   themeToggle.addEventListener('click', () => {
     const current = document.documentElement.dataset.theme || 'dark';
+    // temporarily ensure transition class is present
+    const app = document.querySelector('.app');
+    if (app && !app.classList.contains('theme-anim')) app.classList.add('theme-anim');
     setTheme(current === 'dark' ? 'light' : 'dark');
   });
 }
