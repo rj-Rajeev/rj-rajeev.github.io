@@ -127,9 +127,23 @@ const chatScrollBottom = document.getElementById('chat-scroll-bottom');
 const chatClear = document.querySelector('.chat-clear');
 const chatSettingsBtn = document.querySelector('.chat-settings');
 const chatSettingsPanel = document.getElementById('chat-settings-panel');
-const chatApiKeyInput = document.getElementById('chat-api-key');
-const chatSaveKey = document.getElementById('save-key');
 const chatStatus = document.getElementById('chat-status');
+
+// Chat history persistence
+const CHAT_STORE_KEY = 'chat_history_v1';
+function loadChatHistory() {
+  try { return JSON.parse(localStorage.getItem(CHAT_STORE_KEY) || '[]'); } catch { return []; }
+}
+function saveChatHistory(history) {
+  try { localStorage.setItem(CHAT_STORE_KEY, JSON.stringify(history)); } catch {}
+}
+function renderChatHistory(history) {
+  if (!chatMessages) return;
+  chatMessages.innerHTML = '';
+  history.forEach(m => addMessage(m.content, m.role === 'assistant' ? 'bot' : m.role));
+}
+let chatHistory = loadChatHistory();
+if (chatMessages && chatHistory.length) renderChatHistory(chatHistory);
 
 function addMessage(text, role = 'user') {
   const div = document.createElement('div');
@@ -154,18 +168,13 @@ function toggleChat(open) {
 if (chatFab) chatFab.addEventListener('click', () => toggleChat(true));
 if (chatClose) chatClose.addEventListener('click', () => toggleChat(false));
 if (chatClear) chatClear.addEventListener('click', () => {
-  chatMessages.innerHTML = '';
+  if (chatMessages) chatMessages.innerHTML = '';
+  chatHistory = [];
+  saveChatHistory(chatHistory);
 });
 if (chatSettingsBtn) chatSettingsBtn.addEventListener('click', () => {
   const opened = !chatSettingsPanel.hidden;
   chatSettingsPanel.hidden = opened;
-});
-if (chatSaveKey) chatSaveKey.addEventListener('click', () => {
-  const key = chatApiKeyInput.value.trim();
-  if (key) {
-    localStorage.setItem('openai_key', key);
-    chatStatus.textContent = 'Online';
-  }
 });
 
 if (chatForm) {
@@ -175,16 +184,15 @@ if (chatForm) {
     if (!text) return;
     chatInput.value = '';
     addMessage(text, 'user');
-    const key = localStorage.getItem('openai_key');
-    if (!key) {
-      addMessage('Please add your OpenAI API key in settings ⚙ to chat.', 'bot');
-      return;
-    }
+    chatHistory.push({ role: 'user', content: text });
+    saveChatHistory(chatHistory);
     try {
       chatTyping.hidden = false;
       chatStatus.textContent = 'Typing…';
-      const reply = await openAiClientChat(text, key);
+      const reply = await habitixChat(chatHistory);
       addMessage(reply, 'bot');
+      chatHistory.push({ role: 'assistant', content: reply });
+      saveChatHistory(chatHistory);
     } catch (err) {
       addMessage('Sorry, something went wrong. Please try again later.', 'bot');
     } finally {
@@ -205,30 +213,21 @@ if (chatMessages && chatScrollBottom) {
   });
 }
 
-// OpenAI client using fetch (no server)
-async function openAiClientChat(message, apiKey) {
-  const system = `You are Rajeev's AI assistant for his portfolio site. Persona: Friendly, concise, professional. Context: Full Stack Developer at Prutor.ai (@IIT Kanpur). Skills: React, Next.js, TypeScript, Node.js, MongoDB, Tailwind, Redux Toolkit. Projects: Habitix. Keep replies short (1-3 sentences).`;
-
-  // Use Chat Completions for broad compatibility
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+// Habitix chat client (no API key needed)
+async function habitixChat(history) {
+  const url = 'https://www.habitix.in/api-v2/chat/689d4db30669ef7e251e387c';
+  const body = {
+    messages: history.map(m => ({ role: m.role, content: m.content })),
+    personaId: '689d4db30669ef7e251e387c'
+  };
+  const res = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: message }
-      ],
-      temperature: 0.5,
-      max_tokens: 200
-    })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
   });
-  if (!res.ok) throw new Error('OpenAI API error');
+  if (!res.ok) throw new Error('Habitix API error');
   const data = await res.json();
-  return data.choices?.[0]?.message?.content?.trim() || 'Thanks! I will get back to you.';
+  return (data && data.reply) ? String(data.reply).trim() : 'Thanks! I will get back to you.';
 }
 
 // Contact form (dummy submit)
@@ -292,9 +291,7 @@ function openProjectModal(fromCard) {
     const img = document.createElement('img');
     img.src = imgSrc;
     img.alt = title;
-    img.style.width = '100%';
-    img.style.borderRadius = '12px';
-    img.style.border = '1px solid var(--border)';
+    img.className = 'modal-image';
     modalBody.appendChild(img);
   }
   const p = document.createElement('p');

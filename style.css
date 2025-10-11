@@ -603,7 +603,7 @@ svg { color: var(--text); fill: currentColor; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -621,14 +621,9 @@ svg { color: var(--text); fill: currentColor; }
   background: #0b0d11;
 }
 
-.chat-title {
-  font-weight: 800;
-}
+.chat-title { font-weight: 800; font-size: 0.95rem; }
 
-.chat-status {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
+.chat-status { font-size: 0.8rem; color: var(--muted); }
 
 .chat-actions {
   display: inline-flex;
@@ -640,7 +635,7 @@ svg { color: var(--text); fill: currentColor; }
   border: 1px solid var(--border);
   color: var(--text);
   border-radius: 10px;
-  padding: 6px 8px;
+  padding: 4px 6px;
   cursor: pointer;
 }
 
@@ -689,10 +684,11 @@ svg { color: var(--text); fill: currentColor; }
 .chat-message {
   display: inline-flex;
   max-width: 84%;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid var(--border);
   overflow-wrap: anywhere;
+  font-size: 0.95rem;
 }
 
 .chat-message.user {
@@ -709,7 +705,7 @@ svg { color: var(--text); fill: currentColor; }
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-top: 1px solid var(--border);
 }
 
@@ -717,8 +713,9 @@ svg { color: var(--text); fill: currentColor; }
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 10px 12px;
   color: var(--text);
+  font-size: 0.95rem;
 }
 
 @keyframes fade {
@@ -812,7 +809,7 @@ svg { color: var(--text); fill: currentColor; }
 .modal-overlay.open { opacity: 1; }
 
 .modal-dialog {
-  width: min(920px, calc(100vw - 32px));
+  width: min(760px, calc(100vw - 32px));
   max-height: min(80vh, 720px);
   overflow: auto;
   background: var(--surface);
@@ -830,17 +827,27 @@ svg { color: var(--text); fill: currentColor; }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-bottom: 1px solid var(--border);
 }
-.modal-body { padding: 16px; }
+.modal-body { padding: 14px; }
 .modal-close {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
   border-radius: 10px;
-  padding: 6px 10px;
+  padding: 4px 8px;
   cursor: pointer;
+}
+
+/* Minimal, aesthetic image inside modal */
+.modal-image {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 /* Focus styles */
