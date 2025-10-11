@@ -837,7 +837,7 @@ code {
 }
 
 .chat-message {
-  display: inline-flex;
+  /* display: inline-flex; */
   max-width: 84%;
   padding: 10px 12px;
   border-radius: 14px;
