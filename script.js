@@ -215,10 +215,11 @@ if (chatMessages && chatScrollBottom) {
 
 // Habitix chat client (no API key needed)
 async function habitixChat(history) {
-  const url = 'https://www.habitix.in/api-v2/chat/689d4db30669ef7e251e387c';
+  const persona = '68ea04290a2d3b82f414edd3';
+  const url = `https://www.habitix.in/api-v2/chat/${persona}`;
   const body = {
     messages: history.map(m => ({ role: m.role, content: m.content })),
-    personaId: '689d4db30669ef7e251e387c'
+    personaId: persona
   };
   const res = await fetch(url, {
     method: 'POST',
@@ -230,17 +231,31 @@ async function habitixChat(history) {
   return (data && data.reply) ? String(data.reply).trim() : 'Thanks! I will get back to you.';
 }
 
-// Contact form (dummy submit)
+// Contact form (Formspree AJAX submit - preserves page design)
 const cf = document.getElementById('contact-form');
 const cfStatus = document.getElementById('cf-status');
 if (cf) {
   cf.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const form = new FormData(cf);
+    const formData = new FormData(cf);
     cfStatus.textContent = 'Sending…';
-    await new Promise((r) => setTimeout(r, 800));
-    cfStatus.textContent = 'Thanks! I will get back to you soon.';
-    cf.reset();
+    try {
+      const res = await fetch(cf.getAttribute('action') || 'https://formspree.io/f/mvgwwvjz', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        cfStatus.textContent = 'Thanks! I will get back to you soon.';
+        cf.reset();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        const msg = (data && data.errors && data.errors[0] && data.errors[0].message) || 'Something went wrong. Please try again.';
+        cfStatus.textContent = msg;
+      }
+    } catch (err) {
+      cfStatus.textContent = 'Network error. Please try again later.';
+    }
   });
 }
 
