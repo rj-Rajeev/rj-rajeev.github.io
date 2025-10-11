@@ -145,10 +145,68 @@ function renderChatHistory(history) {
 let chatHistory = loadChatHistory();
 if (chatMessages && chatHistory.length) renderChatHistory(chatHistory);
 
+// Minimal HTML sanitizer for assistant messages
+function sanitizeHtml(unsafeHtml) {
+  const template = document.createElement('template');
+  template.innerHTML = String(unsafeHtml || '');
+
+  const allowedTags = new Set([
+    'p', 'br', 'strong', 'em', 'b', 'i', 'ul', 'ol', 'li', 'code', 'pre', 'a'
+  ]);
+
+  function sanitizeNode(node) {
+    if (node.nodeType === Node.COMMENT_NODE) {
+      node.remove();
+      return;
+    }
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const element = node;
+      const tag = element.tagName.toLowerCase();
+      if (!allowedTags.has(tag)) {
+        const parent = element.parentNode;
+        if (!parent) return;
+        while (element.firstChild) parent.insertBefore(element.firstChild, element);
+        parent.removeChild(element);
+        return;
+      }
+      // Strip all attributes except safe href on anchors
+      Array.from(element.attributes).forEach((attr) => {
+        const name = attr.name.toLowerCase();
+        if (tag === 'a' && name === 'href') {
+          try {
+            // Support absolute and relative URLs; disallow javascript:, data: etc.
+            const href = attr.value.trim();
+            const url = new URL(href, window.location.origin);
+            if (!['http:', 'https:', 'mailto:', 'tel:'].includes(url.protocol)) {
+              element.removeAttribute('href');
+            }
+          } catch {
+            element.removeAttribute('href');
+          }
+        } else {
+          element.removeAttribute(name);
+        }
+      });
+      if (tag === 'a' && element.hasAttribute('href')) {
+        element.setAttribute('target', '_blank');
+        element.setAttribute('rel', 'noopener noreferrer');
+      }
+    }
+    Array.from(node.childNodes).forEach(sanitizeNode);
+  }
+
+  Array.from(template.content.childNodes).forEach(sanitizeNode);
+  return template.innerHTML;
+}
+
 function addMessage(text, role = 'user') {
   const div = document.createElement('div');
   div.className = `chat-message ${role}`;
-  div.textContent = text;
+  if (role === 'bot') {
+    div.innerHTML = sanitizeHtml(text);
+  } else {
+    div.textContent = text;
+  }
   chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
