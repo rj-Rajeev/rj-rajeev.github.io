@@ -129,6 +129,22 @@ const chatSettingsBtn = document.querySelector('.chat-settings');
 const chatSettingsPanel = document.getElementById('chat-settings-panel');
 const chatStatus = document.getElementById('chat-status');
 
+// Auto-resize input field
+if (chatInput) {
+  chatInput.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
+}
+
+function formatTimestamp(date) {
+  return new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  }).format(date);
+}
+
 // Chat history persistence
 const CHAT_STORE_KEY = 'chat_history_v1';
 function loadChatHistory() {
@@ -201,12 +217,22 @@ function sanitizeHtml(unsafeHtml) {
 
 function addMessage(text, role = 'user') {
   const div = document.createElement('div');
-  div.className = `chat-message ${role}`;
+  div.className = `chat-message ${role} message`;
+  
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'message-content';
   if (role === 'bot') {
-    div.innerHTML = sanitizeHtml(text);
+    contentDiv.innerHTML = sanitizeHtml(text);
   } else {
-    div.textContent = text;
+    contentDiv.textContent = text;
   }
+  
+  const timestamp = document.createElement('span');
+  timestamp.className = 'message-timestamp';
+  timestamp.textContent = formatTimestamp(new Date());
+  
+  div.appendChild(contentDiv);
+  div.appendChild(timestamp);
   chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -226,27 +252,55 @@ function toggleChat(open) {
 if (chatFab) chatFab.addEventListener('click', () => toggleChat(true));
 if (chatClose) chatClose.addEventListener('click', () => toggleChat(false));
 if (chatClear) chatClear.addEventListener('click', () => {
-  if (chatMessages) chatMessages.innerHTML = '';
-  chatHistory = [];
-  saveChatHistory(chatHistory);
-});
-if (chatSettingsBtn) chatSettingsBtn.addEventListener('click', () => {
-  const opened = !chatSettingsPanel.hidden;
-  chatSettingsPanel.hidden = opened;
+  if (chatMessages) {
+    chatMessages.innerHTML = '';
+    chatHistory = [];
+    saveChatHistory(chatHistory);
+  }
 });
 
-if (chatForm) {
+if (chatForm && chatInput) {
+  // Auto-resize textarea
+  chatInput.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
+
+  // Handle Shift+Enter for new lines
+  chatInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (this.value.trim()) {
+        chatForm.requestSubmit();
+      }
+    }
+  });
+
   chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const text = chatInput.value.trim();
     if (!text) return;
+    
+    // Reset textarea height
     chatInput.value = '';
+    chatInput.style.height = 'auto';
+    
     addMessage(text, 'user');
     chatHistory.push({ role: 'user', content: text });
     saveChatHistory(chatHistory);
     try {
+      chatTyping.innerHTML = `
+        <div class="typing-indicator">
+          <span>Rajeev is typing</span>
+          <div class="typing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      `;
       chatTyping.hidden = false;
       chatStatus.textContent = 'Typing…';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      
       const reply = await habitixChat(chatHistory);
       addMessage(reply, 'bot');
       chatHistory.push({ role: 'assistant', content: reply });

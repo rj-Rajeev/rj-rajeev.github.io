@@ -560,17 +560,17 @@
               <img
                 class="chat-avatar"
                 src="./aasets/black.rj.vactor.png"
-                alt=""
+                alt="Rajeev's avatar"
               />
               <div>
                 <div class="chat-title">Chat with Rajeev</div>
-                <div class="chat-status" id="chat-status">Online</div>
+                <div class="chat-meta">
+                  <span class="chat-status" id="chat-status">Online</span>
+                  <small class="powered-by">Powered by <a href="https://habitix.in" target="_blank" rel="noopener noreferrer">habitix.in</a></small>
+                </div>
               </div>
             </div>
             <div class="chat-actions">
-              <button class="chat-btn chat-settings" aria-label="Settings">
-                ⚙
-              </button>
               <button
                 class="chat-btn chat-clear"
                 aria-label="Clear conversation"
@@ -582,15 +582,14 @@
               </button>
             </div>
           </header>
-          <div class="chat-settings-panel" id="chat-settings-panel" hidden>
-            <p class="settings-note" style="margin: 4px">
-              Chat is powered by <a>habitix.in</a>
-            </p>
-          </div>
           <div class="chat-messages" id="chat-messages"></div>
           <div class="chat-typing" id="chat-typing" hidden>
-            <span class="dot"></span><span class="dot"></span
-            ><span class="dot"></span>
+            <div class="typing-indicator">
+              <span>Rajeev is typing</span>
+              <div class="typing-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
           </div>
           <button
             class="chat-scroll-bottom"
@@ -600,16 +599,18 @@
           >
             ▼
           </button>
-          <form class="chat-input" id="chat-form">
-            <input
+          <form class="chat-form" id="chat-form">
+            <textarea
               id="chat-text"
               name="message"
-              type="text"
-              placeholder="Ask me anything… (Enter to send)"
-              autocomplete="off"
+              class="chat-input"
+              placeholder="Ask me anything... (Shift + Enter for new line)"
+              rows="1"
               required
-            />
-            <button class="btn btn-primary" id="chat-send" type="submit">
+              autocomplete="off"
+              spellcheck="true"
+            ></textarea>
+            <button class="chat-submit" type="submit" aria-label="Send message">
               Send
             </button>
           </form>
